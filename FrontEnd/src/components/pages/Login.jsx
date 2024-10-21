@@ -6,7 +6,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
-    email: "",
+    correo: "",
     password: "",
   });
 
@@ -22,19 +22,19 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch(`http://localhost:3001/Login?email=${loginData.email}`, {
-        method: 'GET',
-      });
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      body: JSON.stringify(loginData),
+    });
+      if(!response.ok) {
+        throw new Error('Error al iniciar sesión');
+      }
       const data = await response.json();
-
-      if (data.password != loginData.password) {
-        alert("Usuario o contraseña incorrectos");
-        return;
-      } else{      
-        console.log(data);
-        navigate('/Dashboard');
-      
-    }
+      localStorage.setItem('token', data.token);
+      navigate('/dashboard');
     } catch (error) {
       console.error(error);
       alert("Error al iniciar sesión. Por favor, verifica tus credenciales.");
@@ -63,8 +63,8 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Username"
-                  name="email"
-                  value={loginData.email}
+                  name="correo"
+                  value={loginData.correo}
                   onChange={handleChange}
                   required
                 />
