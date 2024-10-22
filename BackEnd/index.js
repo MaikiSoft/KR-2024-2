@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import articulosRoutes from './router/articulo.js';
 import capitulosRoutes from './router/capitulo.js';
 import loginRoutes from './router/usuario.js';
 import cors from 'cors' // Importar las rutas
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 // Usar las rutas de capítulos
+app.use('/articulos', articulosRoutes);
 app.use('/capitulos', capitulosRoutes);
 app.use('/login', loginRoutes);
 

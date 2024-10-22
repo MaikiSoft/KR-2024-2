@@ -1,19 +1,13 @@
 import { Router } from 'express';
-import { createClient } from '@libsql/client';
 import 'dotenv/config';
+import  Turso  from './bd.js';
 
 const router = Router();
-
-// Crear cliente para la base de datos
-const turso = createClient({
-  url: process.env.TURSO_DATABASE_URL,
-  authToken: process.env.TURSO_AUTH_TOKEN,
-});
 
 // Ruta GET para obtener todos los capítulos
 router.get('/', async (req, res) => {
   try {
-    const result = await turso.execute("SELECT * FROM capitulos");
+    const result = await Turso.execute("SELECT * FROM capitulos");
     res.json(result.rows);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -25,7 +19,7 @@ router.post('/', async (req, res) => {
   const { titulo, numero_articulos, palabras_clave } = req.body;
   
   try {
-    const result = await turso.execute({
+    const result = await Turso.execute({
       sql: "INSERT INTO capitulos (titulo, numero_articulos, palabras_clave) VALUES (?, ?, ?)",
       args: [titulo, numero_articulos, palabras_clave],
     });

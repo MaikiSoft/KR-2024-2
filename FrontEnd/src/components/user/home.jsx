@@ -1,7 +1,23 @@
+import { useState, useEffect } from "react";
+
 const Home = () => {
+
+    const [articulos, setArticulos] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/articulos/')
+            .then(res => res.json())
+            .then(data => {
+                setArticulos(data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
+
     return (
         <>
-                <div className="flex-grow-1">
+            <div className="flex-grow-1">
                 <div id="carouselExampleCaptions" className="carousel slide">
                     <div className="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -40,7 +56,36 @@ const Home = () => {
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>
+                <hr />
+                <section className="py-3 text-center container">
+                    <div className="row py-lg-3">
+                        <div className="col-lg-6 col-md-8 mx-auto">
+                            <h1 className="fw-light"><i class="bi bi-exclamation-diamond"></i>Advertencia</h1>
+                            <hr style={{ color: '#ff36d3', border: 'solid 1px' }} />
+                            <p className="lead text-body-secondary">Este sitio NO es una filial oficial de la Fundación Universitaria Konrad Lorenz. Ha sido creado exclusivamente por y para estudiantes, con el único propósito de informar y aprender. No nos hacemos responsables por posibles errores, mala interpretación o desinformación respecto al reglamento de esta institución.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
+            <div class="row">
+                {articulos.map((articulos, index) => (
+                <div className="col-4" key={index}>
+                <div id="list-example" className="list-group">
+                    <a className="list-group-item list-group-item-action" href="#list-item-1">{articulos.titulo}</a>
+                </div>
+            </div>
+                ))}
+                {articulos.map((articulos, index) => (
+            <div className="col-8" key={index}>
+                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" className="scrollspy-example" tabindex="0">
+                    <h4 id={`list-item-${index}`}>Item 1</h4>
+                    <p>{articulos.contenido}</p>
+                </div>
+            </div>
+                ))}
+
+            </div>
+
         </>
     )
 }
