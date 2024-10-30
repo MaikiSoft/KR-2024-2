@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Turso from './bd.js';
+import { Turso } from '../config/db.js';
 import jwt from 'jsonwebtoken';
 // import bcrypt from 'bcrypt';
 import 'dotenv/config';

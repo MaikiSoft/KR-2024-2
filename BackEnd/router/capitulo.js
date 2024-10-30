@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import 'dotenv/config';
-import  Turso  from './bd.js';
+import  {Turso}  from '../config/db.js';
 
 const router = Router();
 

@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom'
 import '../../style/menu.css';
 import { useDash } from '../../context/dashContext';
 import { Token } from '../../services/token';
 
 const Menu = () => {
+
+    const nav = useNavigate()
 
     const [userInfo, setUserInfo] = useState(null);
 
@@ -17,7 +20,7 @@ const Menu = () => {
 
     const botones = [{titulo: 'Home', icono: 'bi bi-house'}, 
         {titulo: 'Capitulos', icono: 'bi bi-file-earmark-medical'},
-        {titulo: 'Orders', icono: 'bi bi-file-earmark-medical'}, 
+        {titulo: 'Articulos', icono: 'bi bi-file-earmark-medical'}, 
         {titulo: 'Products', icono: 'bi bi-file-earmark-medical'}, 
         {titulo: 'Customers', icono: 'bi bi-file-earmark-medical'}];
 
@@ -27,12 +30,20 @@ const Menu = () => {
 
     const nombre = () =>  {
         if(userInfo == null){
-            return <a>iniciar sesion</a>;
+            return <a onClick={logOut}>iniciar sesion</a>;
         }else{
             const correo = userInfo.correo.split('@');
             return correo[0];
         }
     }
+
+    const logOut = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token')
+        nav('/')
+
+    }
+
     return (
         <>
             <div className="menu d-flex flex-column flex-shrink-0 p-3 sticky-top">
@@ -65,7 +76,7 @@ const Menu = () => {
                             <li><a className="dropdown-item" href="#">Settings</a></li>
                             <li><a className="dropdown-item" href="#">Profile</a></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={logOut}>Sign out</a></li>
                         </ul> : ''}
                         
                     </div>

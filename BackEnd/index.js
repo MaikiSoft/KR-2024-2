@@ -7,9 +7,9 @@ import cors from 'cors' // Importar las rutas
 
 // Configurar dotenv para cargar las variables de entorno
 dotenv.config();
-
 const app = express();
 app.use(cors());
+
 const port = process.env.PORT || 3001;
 
 // Middleware para parsear JSON
