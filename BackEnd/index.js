@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import articulosRoutes from './router/articulo.js';
 import capitulosRoutes from './router/capitulo.js';
 import loginRoutes from './router/usuario.js';
-const serverless = require('serverless-http');
+import serverless from 'serverless-http';
 import cors from 'cors' // Importar las rutas
 
 // Configurar dotenv para cargar las variables de entorno
