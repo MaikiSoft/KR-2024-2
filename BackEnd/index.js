@@ -20,4 +20,4 @@ app.use('/capitulos', capitulosRoutes);
 app.use('/login', loginRoutes);
 
 
-export const handler = serverless(app);
+export default serverless(app);
