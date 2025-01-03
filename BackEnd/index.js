@@ -19,9 +19,5 @@ app.use('/articulos', articulosRoutes);
 app.use('/capitulos', capitulosRoutes);
 app.use('/login', loginRoutes);
 
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
-});
 
 export const handler = serverless(app);
