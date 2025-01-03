@@ -8,6 +8,7 @@ const router = Router();
 router.get('/', async (req, res) => {
   try {
     const result = await Turso.execute("SELECT * FROM capitulos");
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.json(result.rows);
   } catch (error) {
     res.status(500).json({ message: error.message });

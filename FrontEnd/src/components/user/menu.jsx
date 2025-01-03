@@ -2,21 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom'
 import '../../style/menu.css';
 import { useDash } from '../../context/dashContext';
-import { Token } from '../../services/token';
 
 const Menu = () => {
 
     const nav = useNavigate()
 
-    const [userInfo, setUserInfo] = useState(null);
-
-    useEffect(() => {
-        const user = Token();
-        if(user){
-        setUserInfo(user);
-}},[]);
+    const {userInfo} = useDash();
 
     const {menuOption, setMenuOption } = useDash();
+    const { setCapId } = useDash();
 
     const botones = [{titulo: 'Home', icono: 'bi bi-house'}, 
         {titulo: 'Capitulos', icono: 'bi bi-file-earmark-medical'},
@@ -54,14 +48,21 @@ const Menu = () => {
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
                         {botones.map((boton, index) => (
+                            
                             <li className="nav-item" key={index}>
                                 <button onClick={() => {
-                                    setMenuOption(boton.titulo);   
+                                    if(boton.titulo === 'Articulos'){
+                                        setMenuOption('Articulos');
+                                        setCapId(null);
+                                    
+                                } else{
+                                    setMenuOption(boton.titulo);
                                 }
-                                } className={activate(boton)} aria-current="page" style={{color:'white'}}>
+                                }} className={activate(boton)} aria-current="page" style={{color:'white'}}>
                                     <i className={boton.icono}> </i>
                                     {boton.titulo}
                                 </button>
+                                
                             </li>
                         ))}
                     </ul>
